@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz 27° Cumpleaños!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5c3e6, #b19cd9, #87ceeb);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            position: relative;
+            padding: 20px;
+        }
+        
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            max-width: 600px;
+            width: 100%;
+            animation: fadeIn 2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            z-index: -1;
+        }
+        
+        h1 {
+            color: #e75480;
+            margin-bottom: 1.5rem;
+            font-size: 2.8rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .photo-container {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 1.5rem;
+            border: 5px solid #e75480;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .photo-container img:hover {
+            transform: scale(1.05);
+        }
+        
+        .age {
+            font-size: 5.5rem;
+            color: #e75480;
+            margin: 1rem 0;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .age::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #f5c3e6, #e75480, #f5c3e6);
+            border-radius: 2px;
+        }
+        
+        .message {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .from {
+            margin-top: 2rem;
+            font-style: italic;
+            color: #666;
+            font-size: 1.1rem;
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .date {
+            margin-top: 1rem;
+            font-weight: bold;
+            color: #e75480;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            opacity: 0.8;
+            border-radius: 0;
+            animation: fall linear forwards;
+            z-index: 1;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(to right, #e75480, #d43d6d);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .music-control:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .music-control i {
+            font-size: 28px;
+            color: white;
+        }
+        
+        .volume-panel {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 99;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform: scale(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease;
+        }
+        
+        .volume-panel.open {
+            transform: scale(1);
+        }
+        
+        .volume-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #e75480;
+        }
+        
+        .volume-slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+        
+        .volume-icon {
+            font-size: 20px;
+            color: #e75480;
+        }
+        
+        .volume-slider {
+            -webkit-appearance: none;
+            width: 120px;
+            height: 6px;
+            border-radius: 3px;
+            background: #ddd;
+            outline: none;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #e75480;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .volume-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #e75480;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+        
+        .volume-percentage {
+            font-size: 14px;
+            font-weight: bold;
+            color: #e75480;
+            min-width: 35px;
+            text-align: center;
+        }
+        
+        .cake {
+            font-size: 4rem;
+            margin: 1rem 0;
+            animation: bounce 2s infinite;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .balloon {
+            position: absolute;
+            width: 40px;
+            height: 50px;
+            background: #e75480;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: float 15s infinite;
+            z-index: 0;
+        }
+        
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background: #ffcc00;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(20deg); }
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .age { font-size: 4.5rem; }
+            .message { font-size: 1.1rem; }
+            .container { padding: 1.8rem; }
+            .photo-container {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .volume-panel {
+                bottom: 80px;
+                right: 15px;
+                padding: 12px;
+            }
+            
+            .volume-slider {
+                width: 100px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            .age { font-size: 4rem; }
+            .message { font-size: 1rem; }
+            .container { padding: 1.5rem; }
+            .photo-container {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>¡Feliz Cumpleaños!</h1>
+        
+        <div class="photo-container">
+            <img id="birthday-photo" src="https://i.ibb.co/wNgcYDvx/Imagen-de-Whats-App-2025-09-19-a-las-19-13-00-bea6f472.jpg" alt="Foto de cumpleaños">
+        </div>
+        
+        <div class="cake">🎂</div>
+        <div class="age">27</div>
+        
+        <p class="message">Hoy es un día muy especial porque celebramos tus 27 años de vida. Que este nuevo ciclo esté lleno de alegría, amor y bendiciones. Eres una persona maravillosa y te mereces todo lo mejor.</p>
+        
+        <p class="from">Con todo nuestro cariño,<br>Tu hermano Sebastian Velasquez Orozco<br>y tu madre Gloria Janet Orozco</p>
+        
+        <p class="date">18 de Septiembre 2025</p>
+    </div>
+    
+    <div class="music-control" id="musicControl">
+        <i class="fas fa-volume-up"></i>
+    </div>
+
+    <div class="volume-panel" id="volumePanel">
+        <div class="volume-title">Volumen</div>
+        <div class="volume-slider-container">
+            <i class="fas fa-volume-down volume-icon"></i>
+            <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50">
+            <i class="fas fa-volume-up volume-icon"></i>
+            <span class="volume-percentage" id="volumePercentage">50%</span>
+        </div>
+    </div>
+
+    <!-- Audio con tu archivo MP3 de Dropbox (URL convertida a enlace directo) -->
+    <audio id="birthdayAudio" loop>
+        <source src="https://www.dropbox.com/scl/fi/q9hl8xqwwwpn96uh2h7i7/Que-Dios-Te-Bendiga-Peter-Manjarr-s-Y-Sergio-Luis-Rodr-guez-Video-Letra.mp3?rlkey=co3di3lvtaarfvevyyt7pibno&st=2kglrpgc&raw=1" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <script>
+        // ===================================================================
+        // CONFIGURACIÓN
+        // ===================================================================
+        
+        // URL de la imagen
+        const IMAGE_URL = 'https://i.ibb.co/wNgcYDvx/Imagen-de-Whats-App-2025-09-19-a-las-19-13-00-bea6f472.jpg';
+        
+        // URL de música (archivo MP3 de Dropbox)
+        // He modificado el enlace para que sea un enlace directo
+        const MUSIC_URL = 'https://www.dropbox.com/scl/fi/q9hl8xqwwwpn96uh2h7i7/Que-Dios-Te-Bendiga-Peter-Manjarr-s-Y-Sergio-Luis-Rodr-guez-Video-Letra.mp3?rlkey=co3di3lvtaarfvevyyt7pibno&st=2kglrpgc&raw=1';
+        
+        // Volumen inicial (50%)
+        const INITIAL_VOLUME = 0.5;
+        
+        // ===================================================================
+        // NO ES NECESARIO EDITAR NADA DEBAJO DE ESTA LÍNEA
+        // ===================================================================
+        
+        // Elementos DOM
+        const birthdayPhoto = document.getElementById('birthday-photo');
+        const musicControl = document.getElementById('musicControl');
+        const volumePanel = document.getElementById('volumePanel');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const volumePercentage = document.getElementById('volumePercentage');
+        const audio = document.getElementById('birthdayAudio');
+        
+        // Estado de la aplicación
+        let isPlaying = false;
+        let pressTimer;
+        
+        // Cargar imagen desde URL
+        function loadImage() {
+            birthdayPhoto.src = IMAGE_URL;
+            birthdayPhoto.onerror = function() {
+                console.error('Error al cargar la imagen. Verifica que la URL sea correcta.');
+                // Imagen de respaldo en caso de error
+                birthdayPhoto.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220" viewBox="0 0 220 220"><rect width="220" height="220" fill="%23f5c3e6"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="14" fill="%23987fb5">Foto de cumpleaños</text></svg>';
+            };
+        }
+        
+        // Cargar música
+        function loadMusic() {
+            // Configurar la fuente de audio
+            const sourceElement = audio.querySelector('source');
+            sourceElement.src = MUSIC_URL;
+            
+            // Recargar el elemento de audio
+            audio.load();
+            
+            // Configurar volumen inicial
+            audio.volume = INITIAL_VOLUME;
+            volumeSlider.value = INITIAL_VOLUME * 100;
+            volumePercentage.textContent = `${INITIAL_VOLUME * 100}%`;
+            updateVolumeIcon(INITIAL_VOLUME * 100);
+            
+            // Intentar reproducir automáticamente después de una interacción del usuario
+            const tryPlayAudio = () => {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    updateVolumeIcon(INITIAL_VOLUME * 100);
+                    document.removeEventListener('click', tryPlayAudio);
+                }).catch(error => {
+                    console.log("Reproducción automática falló: ", error);
+                    // Mostrar instrucciones si falla la reproducción automática
+                    const messageElement = document.querySelector('.message');
+                    const originalText = messageElement.textContent;
+                    messageElement.innerHTML = originalText + '<br><br><small>Haz clic en el botón de música para activar el audio</small>';
+                });
+            };
+            
+            // Esperar a que el usuario interactúe con la página
+            document.addEventListener('click', tryPlayAudio, { once: true });
+        }
+        
+        // Control de música
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                musicControl.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            } else {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    updateVolumeIcon(volumeSlider.value);
+                }).catch(error => {
+                    console.log("Error al reproducir: ", error);
+                    alert("Error al reproducir el audio. Por favor, verifica que la URL del archivo sea correcta.");
+                });
+            }
+            isPlaying = !isPlaying;
+        }
+        
+        // Actualizar icono de volumen según el nivel
+        function updateVolumeIcon(volume) {
+            if (volume == 0) {
+                musicControl.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            } else if (volume < 50) {
+                musicControl.innerHTML = '<i class="fas fa-volume-down"></i>';
+            } else {
+                musicControl.innerHTML = '<i class="fas fa-volume-up"></i>';
+            }
+        }
+        
+        // Mostrar u ocultar panel de volumen
+        function toggleVolumePanel() {
+            volumePanel.classList.toggle('open');
+        }
+        
+        // Configurar controles de volumen
+        function setupVolumeControls() {
+            // Eventos para el control de música
+            musicControl.addEventListener('mousedown', function() {
+                pressTimer = setTimeout(() => {
+                    toggleVolumePanel();
+                }, 500);
+            });
+            
+            musicControl.addEventListener('mouseup', function() {
+                clearTimeout(pressTimer);
+            });
+            
+            musicControl.addEventListener('mouseleave', function() {
+                clearTimeout(pressTimer);
+            });
+            
+            musicControl.addEventListener('click', function(e) {
+                if (!volumePanel.classList.contains('open')) {
+                    toggleMusic();
+                }
+            });
+            
+            // Actualizar volumen cuando se mueve el slider
+            volumeSlider.addEventListener('input', function() {
+                const volume = this.value / 100;
+                volumePercentage.textContent = `${this.value}%`;
+                audio.volume = volume;
+                updateVolumeIcon(this.value);
+            });
+            
+            // Ocultar panel de volumen al hacer clic fuera
+            document.addEventListener('click', function(e) {
+                if (!musicControl.contains(e.target) && !volumePanel.contains(e.target)) {
+                    volumePanel.classList.remove('open');
+                }
+            });
+        }
+        
+        // Crear confeti
+        function createConfetti() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9c74f', '#ffafcc', '#83e377', '#e75480', '#9b5de5'];
+            
+            for (let i = 0; i < 150; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    
+                    // Estilo aleatorio
+                    const size = Math.floor(Math.random() * 15) + 5;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    confetti.style.width = `${size}px`;
+                    confetti.style.height = `${size}px`;
+                    confetti.style.backgroundColor = color;
+                    confetti.style.left = `${Math.random() * 100}vw`;
+                    confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                    
+                    // Forma aleatoria (círculo o cuadrado)
+                    if (Math.random() > 0.5) {
+                        confetti.style.borderRadius = '50%';
+                    }
+                    
+                    document.body.appendChild(confetti);
+                    
+                    // Eliminar el confeti después de que termine la animación
+                    setTimeout(() => {
+                        if (confetti.parentNode) {
+                            confetti.parentNode.removeChild(confetti);
+                        }
+                    }, 5000);
+                }, i * 20);
+            }
+        }
+        
+        // Crear globos
+        function createBalloons() {
+            const colors = ['#e75480', '#45b7d1', '#f9c74f', '#83e377', '#9b5de5'];
+            
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const balloon = document.createElement('div');
+                    balloon.className = 'balloon';
+                    
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const size = Math.floor(Math.random() * 20) + 30;
+                    const left = Math.floor(Math.random() * 100);
+                    const delay = Math.floor(Math.random() * 15);
+                    
+                    balloon.style.backgroundColor = color;
+                    balloon.style.width = `${size}px`;
+                    balloon.style.height = `${size * 1.2}px`;
+                    balloon.style.left = `${left}vw`;
+                    balloon.style.animationDelay = `${delay}s`;
+                    
+                    document.body.appendChild(balloon);
+                }, i * 300);
+            }
+        }
+        
+        // Iniciar efectos visuales
+        createConfetti();
+        createBalloons();
+        
+        // Repetir confeti cada 5 segundos
+        setInterval(createConfetti, 5000);
+        
+        // Efecto de escritura para el mensaje
+        function typeWriterEffect() {
+            const messageElement = document.querySelector('.message');
+            const originalText = messageElement.textContent;
+            messageElement.textContent = '';
+            
+            let i = 0;
+            function type() {
+                if (i < originalText.length) {
+                    messageElement.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(type, 30);
+                }
+            }
+            type();
+        }
+        
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            loadImage();
+            loadMusic();
+            setupVolumeControls();
+            setTimeout(typeWriterEffect, 1000);
+        });
+    </script>
+</body>
+</html>
