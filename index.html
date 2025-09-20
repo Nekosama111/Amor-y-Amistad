@@ -397,6 +397,11 @@
             color: white;
         }
         
+        .share-btn.email {
+            background: #ea4335;
+            color: white;
+        }
+        
         .share-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -541,6 +546,46 @@
             color: #ff4d6d;
         }
         
+        .share-options-modal {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .share-options-modal h3 {
+            margin-bottom: 15px;
+            color: #ff4d6d;
+        }
+        
+        .share-type-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .share-type-btn {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 2px solid #ff4d6d;
+            background: white;
+            color: #ff4d6d;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .share-type-btn.active {
+            background: #ff4d6d;
+            color: white;
+        }
+        
+        .share-type-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
@@ -581,6 +626,10 @@
             .gift-card-message {
                 font-size: 1.2rem;
             }
+            
+            .share-type-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -596,7 +645,7 @@
         
         <div class="message-box">
             <p>En este día especial, crea una tarjeta virtual personalizada y compártela con quienes más quieres. ¡Haz que sonrían con un mensaje especial!</p>
-            <p>Puedes elegir si hacer tu tarjeta pública para inspirar a otros o mantenerla privada.</p>
+            <p>Puedes elegir si hacer tu tarjeta pública para inspirar a otros o mantenerla privada y compartirla solo con personas específicas.</p>
         </div>
         
         <div class="features">
@@ -610,7 +659,7 @@
                 <h3>Mis Tarjetas</h3>
                 <p>Revisa tus creaciones guardadas</p>
             </div>
-            <div class="feature-card" onclick="showPublicCards()">
+            <div class="featurecard" onclick="showPublicCards()">
                 <i class="fas fa-globe-americas"></i>
                 <h3>Galería Pública</h3>
                 <p>Ve tarjetas compartidas por otros</p>
@@ -671,7 +720,7 @@
                 </select>
                 
                 <div style="display: flex; gap: 10px; align-items: center;">
-                    <input type="checkbox" id="makePublic" checked>
+                    <input type="checkbox" id="makePublic">
                     <label for="makePublic">Hacer pública esta tarjeta (aparecerá en la galería)</label>
                 </div>
                 
@@ -705,7 +754,7 @@
                     <div class="gift-card-header">Para: <span id="gift-recipient">[Nombre]</span></div>
                     <div class="gift-card-message" id="gift-message">Tu mensaje especial...</div>
                     <div class="gift-card-from">De: <span id="gift-sender">[Remitente]</span></div>
-                    <div class="gift-card-date">14 de Febrero, 2025</div>
+                    <div class="gift-card-date" id="gift-card-date">14 de Febrero, 2025</div>
                     <div class="gift-card-hearts">
                         <i class="fas fa-heart"></i>
                         <i class="fas fa-heart"></i>
@@ -714,24 +763,46 @@
                 </div>
             </div>
             
-            <div class="share-options">
-                <button class="share-btn download" onclick="downloadCard()">
-                    <i class="fas fa-download"></i> Descargar Imagen
-                </button>
-                <button class="share-btn facebook" onclick="shareOnFacebook()">
-                    <i class="fab fa-facebook-f"></i> Facebook
-                </button>
-                <button class="share-btn twitter" onclick="shareOnTwitter()">
-                    <i class="fab fa-twitter"></i> Twitter
-                </button>
-                <button class="share-btn whatsapp" onclick="shareOnWhatsApp()">
-                    <i class="fab fa-whatsapp"></i> WhatsApp
-                </button>
+            <div class="share-options-modal">
+                <h3>¿Cómo quieres compartir tu tarjeta?</h3>
+                <div class="share-type-buttons">
+                    <button class="share-type-btn active" onclick="selectShareType('public')">Públicamente</button>
+                    <button class="share-type-btn" onclick="selectShareType('private')">Privadamente</button>
+                </div>
+                
+                <div id="public-share-options">
+                    <p>Comparte tu tarjeta en la galería pública para que todos puedan verla:</p>
+                    <div class="share-options">
+                        <button class="share-btn download" onclick="downloadCard()">
+                            <i class="fas fa-download"></i> Descargar Imagen
+                        </button>
+                        <button class="share-btn facebook" onclick="shareOnFacebook()">
+                            <i class="fab fa-facebook-f"></i> Facebook
+                        </button>
+                        <button class="share-btn twitter" onclick="shareOnTwitter()">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="private-share-options" style="display: none;">
+                    <p>Comparte tu tarjeta de forma privada con personas específicas:</p>
+                    <div class="share-options">
+                        <button class="share-btn download" onclick="downloadCard()">
+                            <i class="fas fa-download"></i> Descargar Imagen
+                        </button>
+                        <button class="share-btn whatsapp" onclick="shareOnWhatsApp()">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </button>
+                        <button class="share-btn email" onclick="shareViaEmail()">
+                            <i class="fas fa-envelope"></i> Email
+                        </button>
+                        <button class="share-btn copy" onclick="copyShareLink()">
+                            <i class="fas fa-copy"></i> Copiar Enlace
+                        </button>
+                    </div>
+                </div>
             </div>
-            
-            <p style="margin-top: 20px; font-size: 0.9rem; text-align: center;">
-                Descarga la imagen y compártela en Instagram, WhatsApp o cualquier red social.
-            </p>
         </div>
     </div>
 
@@ -769,6 +840,7 @@
 
         // Variable para almacenar la tarjeta actual a compartir
         let currentCardToShare = null;
+        let currentShareType = 'public';
 
         // Crear corazones que caen
         function createHearts() {
@@ -813,6 +885,26 @@
         
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // Seleccionar tipo de compartir
+        function selectShareType(type) {
+            currentShareType = type;
+            
+            // Actualizar botones
+            document.querySelectorAll('.share-type-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Mostrar opciones correspondientes
+            if (type === 'public') {
+                document.getElementById('public-share-options').style.display = 'block';
+                document.getElementById('private-share-options').style.display = 'none';
+            } else {
+                document.getElementById('public-share-options').style.display = 'none';
+                document.getElementById('private-share-options').style.display = 'block';
+            }
         }
         
         // Actualizar vista previa de la tarjeta
@@ -1033,63 +1125,53 @@
                 link.download = `tarjeta-amor-${currentCardToShare.recipient}.png`;
                 link.href = canvas.toDataURL('image/png');
                 link.click();
+                alert('¡Imagen descargada! Ahora puedes compartirla donde quieras.');
             });
         }
         
         // Compartir en Facebook
         function shareOnFacebook() {
-            // Para compartir la imagen, primero debemos descargarla y luego subirla
-            // Esta es una implementación simplificada
-            html2canvas(document.getElementById('giftCard')).then(canvas => {
-                canvas.toBlob(blob => {
-                    const file = new File([blob], 'tarjeta-amor.png', { type: 'image/png' });
-                    const shareData = {
-                        files: [file],
-                        title: 'Tarjeta de Amor y Amistad',
-                        text: `Te comparto esta tarjeta de amor para ${currentCardToShare.recipient}`
-                    };
-                    
-                    if (navigator.share && navigator.canShare(shareData)) {
-                        navigator.share(shareData)
-                            .then(() => console.log('Compartido con éxito'))
-                            .catch(error => console.log('Error al compartir', error));
-                    } else {
-                        downloadCard();
-                        alert('Para compartir en Facebook, descarga la imagen y luego compártela manualmente.');
-                    }
-                });
-            });
+            const text = `Mira esta tarjeta de amor para ${currentCardToShare.recipient}: "${currentCardToShare.message}" - Crea tu propia tarjeta en`;
+            const url = encodeURIComponent(window.location.href);
+            const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${encodeURIComponent(text)}`;
+            window.open(shareUrl, '_blank');
         }
         
         // Compartir en Twitter
         function shareOnTwitter() {
-            const text = `Te comparto esta tarjeta de amor para ${currentCardToShare.recipient} - Crea la tuya en`;
-            const url = window.location.href;
-            const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+            const text = `Mira esta tarjeta de amor para ${currentCardToShare.recipient} - Crea la tuya en`;
+            const url = encodeURIComponent(window.location.href);
+            const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${url}`;
             window.open(shareUrl, '_blank');
         }
         
         // Compartir en WhatsApp
         function shareOnWhatsApp() {
-            // Para WhatsApp, descargamos la imagen primero
-            html2canvas(document.getElementById('giftCard')).then(canvas => {
-                canvas.toBlob(blob => {
-                    const file = new File([blob], 'tarjeta-amor.png', { type: 'image/png' });
-                    const shareData = {
-                        files: [file],
-                        text: `Te comparto esta tarjeta de amor para ${currentCardToShare.recipient}`
-                    };
-                    
-                    if (navigator.share && navigator.canShare(shareData)) {
-                        navigator.share(shareData)
-                            .then(() => console.log('Compartido con éxito'))
-                            .catch(error => console.log('Error al compartir', error));
-                    } else {
-                        downloadCard();
-                        alert('Para compartir en WhatsApp, descarga la imagen y luego compártela manualmente.');
-                    }
+            const text = `💌 Te comparto esta tarjeta de amor para ${currentCardToShare.recipient}:\n\n"${currentCardToShare.message}"\n\nDe: ${currentCardToShare.sender}\n\nCrea tu propia tarjeta en: ${window.location.href}`;
+            const shareUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+            window.open(shareUrl, '_blank');
+        }
+        
+        // Compartir por correo electrónico
+        function shareViaEmail() {
+            const subject = `Tarjeta de Amor para ${currentCardToShare.recipient}`;
+            const body = `Te comparto esta tarjeta de amor:\n\nPara: ${currentCardToShare.recipient}\nMensaje: ${currentCardToShare.message}\nDe: ${currentCardToShare.sender}\n\nCrea tu propia tarjeta en: ${window.location.href}`;
+            const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoUrl;
+        }
+        
+        // Copiar enlace de compartir
+        function copyShareLink() {
+            const text = `💌 Te comparto esta tarjeta de amor para ${currentCardToShare.recipient}:\n\n"${currentCardToShare.message}"\n\nDe: ${currentCardToShare.sender}\n\nCrea tu propia tarjeta en: ${window.location.href}`;
+            
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    alert('¡Enlace copiado al portapapeles! Ahora puedes pegarlo en cualquier mensaje.');
+                })
+                .catch(err => {
+                    console.error('Error al copiar: ', err);
+                    alert('No se pudo copiar el enlace. Puedes tomar una captura de pantalla de la tarjeta.');
                 });
-            });
         }
         
         // Dar like a una tarjeta
