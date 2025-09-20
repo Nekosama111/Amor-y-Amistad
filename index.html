@@ -853,7 +853,11 @@
                 sender: sender,
                 message: message,
                 theme: theme,
-                date: new Date().toLocaleDateString(),
+                date: new Date().toLocaleDateString('es-ES', { 
+                    day: '2-digit', 
+                    month: '2-digit', 
+                    year: 'numeric' 
+                }),
                 public: isPublic
             };
             
@@ -867,7 +871,11 @@
                     sender: sender,
                     message: message,
                     theme: theme,
-                    date: new Date().toLocaleDateString(),
+                    date: new Date().toLocaleDateString('es-ES', { 
+                        day: '2-digit', 
+                        month: '2-digit', 
+                        year: 'numeric' 
+                    }),
                     likes: 0,
                     public: true
                 });
@@ -989,6 +997,15 @@
             document.getElementById('gift-recipient').textContent = card.recipient;
             document.getElementById('gift-sender').textContent = card.sender;
             document.getElementById('gift-message').textContent = card.message;
+            
+            // Actualizar la fecha correctamente
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString('es-ES', { 
+                day: '2-digit', 
+                month: 'long', 
+                year: 'numeric' 
+            });
+            document.getElementById('gift-card-date').textContent = formattedDate;
             
             // Actualizar el tema
             const giftCard = document.getElementById('giftCard');
@@ -1174,6 +1191,15 @@
         window.onload = function() {
             createHearts();
             updateCardPreview();
+            
+            // Actualizar la fecha en la tarjeta de regalo
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString('es-ES', { 
+                day: '2-digit', 
+                month: 'long', 
+                year: 'numeric' 
+            });
+            document.getElementById('gift-card-date').textContent = formattedDate;
         };
     </script>
 </body>
