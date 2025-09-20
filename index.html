@@ -411,6 +411,12 @@
         .public-cards {
             margin-top: 50px;
             text-align: center;
+            width: 100%;
+            display: none;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
         
         .section-title {
@@ -436,6 +442,12 @@
             width: 300px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .saved-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
         
         .saved-card h3 {
@@ -586,6 +598,17 @@
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
         }
         
+        .no-cards-message {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+            color: #8a0c42;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
@@ -659,7 +682,7 @@
                 <h3>Mis Tarjetas</h3>
                 <p>Revisa tus creaciones guardadas</p>
             </div>
-            <div class="featurecard" onclick="showPublicCards()">
+            <div class="feature-card" onclick="showPublicCards()">
                 <i class="fas fa-globe-americas"></i>
                 <h3>Galería Pública</h3>
                 <p>Ve tarjetas compartidas por otros</p>
@@ -676,7 +699,7 @@
             <button class="button button-secondary" onclick="showPublicCards()">Ver Galería Pública</button>
         </div>
         
-        <div class="public-cards" id="public-cards-section" style="display: none;">
+        <div class="public-cards" id="public-cards-section">
             <h2 class="section-title">Galería de Tarjetas Compartidas</h2>
             <p>Estas son algunas tarjetas que otras personas han compartido:</p>
             <div class="cards-container" id="public-cards">
@@ -684,7 +707,7 @@
             </div>
         </div>
         
-        <div class="public-cards" id="my-cards-section" style="display: none;">
+        <div class="public-cards" id="my-cards-section">
             <h2 class="section-title">Mis Tarjetas Virtuales</h2>
             <p>Estas son las tarjetas que has creado:</p>
             <div class="cards-container" id="my-cards">
@@ -971,6 +994,9 @@
                     likes: 0,
                     public: true
                 });
+                
+                // Actualizar la galería pública
+                showPublicCards();
             }
             
             // Mostrar confirmación
@@ -1006,12 +1032,22 @@
             container.innerHTML = '';
             
             // Agregar cada tarjeta pública
-            publicCards.forEach((card, index) => {
-                if (card.public) {
-                    const cardElement = createCardElement(card, index, true);
-                    container.appendChild(cardElement);
-                }
-            });
+            if (publicCards.length === 0) {
+                container.innerHTML = `
+                    <div class="no-cards-message">
+                        <i class="fas fa-heart" style="font-size: 3rem; color: #ff4d6d; margin-bottom: 20px;"></i>
+                        <h3>Aún no hay tarjetas públicas</h3>
+                        <p>¡Sé el primero en crear y compartir una tarjeta!</p>
+                    </div>
+                `;
+            } else {
+                publicCards.forEach((card, index) => {
+                    if (card.public) {
+                        const cardElement = createCardElement(card, index, true);
+                        container.appendChild(cardElement);
+                    }
+                });
+            }
             
             // Mostrar sección
             section.style.display = 'block';
@@ -1035,7 +1071,13 @@
             const savedCards = JSON.parse(localStorage.getItem('loveCards')) || [];
             
             if (savedCards.length === 0) {
-                container.innerHTML = '<p style="text-align: center; width: 100%;">Aún no has creado ninguna tarjeta.</p>';
+                container.innerHTML = `
+                    <div class="no-cards-message">
+                        <i class="fas fa-heart" style="font-size: 3rem; color: #ff4d6d; margin-bottom: 20px;"></i>
+                        <h3>Aún no has creado tarjetas</h3>
+                        <p>¡Crea tu primera tarjeta haciendo clic en el botón "Crear Tarjeta Virtual"!</p>
+                    </div>
+                `;
             } else {
                 // Agregar cada tarjeta guardada
                 savedCards.forEach((card, index) => {
@@ -1282,6 +1324,10 @@
                 year: 'numeric' 
             });
             document.getElementById('gift-card-date').textContent = formattedDate;
+            
+            // Ocultar las secciones al cargar la página
+            document.getElementById('public-cards-section').style.display = 'none';
+            document.getElementById('my-cards-section').style.display = 'none';
         };
     </script>
 </body>
