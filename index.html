@@ -779,22 +779,22 @@
         </div>
         
         <div class="features">
-            <div class="feature-card" onclick="openModal('virtualCard')">
+            <div class="feature-card" id="create-card-btn">
                 <i class="fas fa-heart"></i>
                 <h3>Crear Tarjeta</h3>
                 <p>Diseña una tarjeta virtual personalizada</p>
             </div>
-            <div class="feature-card" onclick="showSavedCards()">
+            <div class="feature-card" id="my-cards-btn">
                 <i class="fas fa-bookmark"></i>
                 <h3>Mis Tarjetas</h3>
                 <p>Revisa tus creaciones guardadas</p>
             </div>
-            <div class="feature-card" onclick="showPublicCards()">
+            <div class="feature-card" id="gallery-btn">
                 <i class="fas fa-globe-americas"></i>
                 <h3>Galería Pública</h3>
                 <p>Ve tarjetas compartidas por otros</p>
             </div>
-            <div class="feature-card" onclick="sharePage()">
+            <div class="feature-card" id="share-page-btn">
                 <i class="fas fa-share-alt"></i>
                 <h3>Compartir Página</h3>
                 <p>Difunde amor en redes sociales</p>
@@ -802,8 +802,8 @@
         </div>
         
         <div style="text-align: center;">
-            <button class="button" onclick="openModal('virtualCard')">Crear Tarjeta Virtual</button>
-            <button class="button button-secondary" onclick="showPublicCards()">Ver Galería Pública</button>
+            <button class="button" id="create-card-button">Crear Tarjeta Virtual</button>
+            <button class="button button-secondary" id="gallery-button">Ver Galería Pública</button>
         </div>
         
         <div class="public-cards" id="public-cards-section">
@@ -826,10 +826,10 @@
             <p>© 2025 - Día del Amor y la Amistad</p>
             <p>Comparte amor con el mundo ❤️</p>
             <div class="social-icons">
-                <a href="#" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook"></i></a>
-                <a href="#" onclick="shareOnSocial('twitter')"><i class="fab fa-twitter"></i></a>
-                <a href="#" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></a>
-                <a href="#" onclick="shareOnSocial('instagram')"><i class="fab fa-instagram"></i></a>
+                <a href="#" id="facebook-share"><i class="fab fa-facebook"></i></a>
+                <a href="#" id="twitter-share"><i class="fab fa-twitter"></i></a>
+                <a href="#" id="whatsapp-share"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" id="instagram-share"><i class="fab fa-instagram"></i></a>
             </div>
         </footer>
     </div>
@@ -837,7 +837,7 @@
     <!-- Modal para Tarjetas Virtuales -->
     <div id="virtualCardModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('virtualCardModal')">&times;</span>
+            <span class="close" id="close-modal">&times;</span>
             <h2>Crea una Tarjeta Virtual</h2>
             <form id="virtualCardForm">
                 <div class="form-group">
@@ -858,10 +858,10 @@
                 <div class="form-group">
                     <label>Selecciona un tema:</label>
                     <div class="theme-selector">
-                        <div class="theme-option heart-theme active" data-theme="heart-theme" onclick="selectTheme('heart-theme')" title="Corazones"></div>
-                        <div class="theme-option flower-theme" data-theme="flower-theme" onclick="selectTheme('flower-theme')" title="Flores"></div>
-                        <div class="theme-option romantic-theme" data-theme="romantic-theme" onclick="selectTheme('romantic-theme')" title="Romántico"></div>
-                        <div class="theme-option vintage-theme" data-theme="vintage-theme" onclick="selectTheme('vintage-theme')" title="Vintage"></div>
+                        <div class="theme-option heart-theme active" data-theme="heart-theme" title="Corazones"></div>
+                        <div class="theme-option flower-theme" data-theme="flower-theme" title="Flores"></div>
+                        <div class="theme-option romantic-theme" data-theme="romantic-theme" title="Romántico"></div>
+                        <div class="theme-option vintage-theme" data-theme="vintage-theme" title="Vintage"></div>
                     </div>
                 </div>
                 
@@ -895,7 +895,7 @@
     <!-- Modal para Compartir Tarjeta -->
     <div id="shareCardModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('shareCardModal')">&times;</span>
+            <span class="close" id="close-share-modal">&times;</span>
             <h2>Compartir Tarjeta Virtual</h2>
             
             <div id="gift-card-container">
@@ -918,20 +918,20 @@
             <div class="share-options-modal">
                 <h3>¿Cómo quieres compartir tu tarjeta?</h3>
                 <div class="share-type-buttons">
-                    <button class="share-type-btn active" onclick="selectShareType('public')">Públicamente</button>
-                    <button class="share-type-btn" onclick="selectShareType('private')">Privadamente</button>
+                    <button class="share-type-btn active" id="public-share-btn">Públicamente</button>
+                    <button class="share-type-btn" id="private-share-btn">Privadamente</button>
                 </div>
                 
                 <div id="public-share-options">
                     <p>Comparte tu tarjeta en la galería pública para que todos puedan verla:</p>
                     <div class="share-options">
-                        <button class="share-btn download" onclick="downloadCard()">
+                        <button class="share-btn download" id="download-card-btn">
                             <i class="fas fa-download"></i> Descargar Imagen
                         </button>
-                        <button class="share-btn facebook" onclick="shareOnFacebook()">
+                        <button class="share-btn facebook" id="facebook-card-btn">
                             <i class="fab fa-facebook-f"></i> Facebook
                         </button>
-                        <button class="share-btn twitter" onclick="shareOnTwitter()">
+                        <button class="share-btn twitter" id="twitter-card-btn">
                             <i class="fab fa-twitter"></i> Twitter
                         </button>
                     </div>
@@ -940,16 +940,16 @@
                 <div id="private-share-options" style="display: none;">
                     <p>Comparte tu tarjeta de forma privada con personas específicas:</p>
                     <div class="share-options">
-                        <button class="share-btn download" onclick="downloadCard()">
+                        <button class="share-btn download" id="download-private-btn">
                             <i class="fas fa-download"></i> Descargar Imagen
                         </button>
-                        <button class="share-btn whatsapp" onclick="shareOnWhatsApp()">
+                        <button class="share-btn whatsapp" id="whatsapp-share-btn">
                             <i class="fab fa-whatsapp"></i> WhatsApp
                         </button>
-                        <button class="share-btn email" onclick="shareViaEmail()">
+                        <button class="share-btn email" id="email-share-btn">
                             <i class="fas fa-envelope"></i> Email
                         </button>
-                        <button class="share-btn copy" onclick="copyShareLink()">
+                        <button class="share-btn copy" id="copy-link-btn">
                             <i class="fas fa-copy"></i> Copiar Enlace
                         </button>
                     </div>
@@ -994,6 +994,143 @@
         let currentCardToShare = null;
         let currentShareType = 'public';
         let currentTheme = 'heart-theme';
+
+        // Inicializar eventos después de que el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar la página
+            createHearts();
+            updateCardPreview();
+            
+            // Actualizar la fecha en la tarjeta de regalo
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString('es-ES', { 
+                day: '2-digit', 
+                month: 'long', 
+                year: 'numeric' 
+            });
+            document.getElementById('gift-card-date').textContent = formattedDate;
+            
+            // Ocultar las secciones al cargar la página
+            document.getElementById('public-cards-section').style.display = 'none';
+            document.getElementById('my-cards-section').style.display = 'none';
+            
+            // Asignar event listeners a los botones
+            initializeEventListeners();
+        });
+
+        // Inicializar todos los event listeners
+        function initializeEventListeners() {
+            // Botones principales
+            document.getElementById('create-card-btn').addEventListener('click', function() {
+                openModal('virtualCard');
+            });
+            
+            document.getElementById('create-card-button').addEventListener('click', function() {
+                openModal('virtualCard');
+            });
+            
+            document.getElementById('my-cards-btn').addEventListener('click', function() {
+                showSavedCards();
+            });
+            
+            document.getElementById('gallery-btn').addEventListener('click', function() {
+                showPublicCards();
+            });
+            
+            document.getElementById('gallery-button').addEventListener('click', function() {
+                showPublicCards();
+            });
+            
+            document.getElementById('share-page-btn').addEventListener('click', function() {
+                sharePage();
+            });
+            
+            // Botones de redes sociales en el footer
+            document.getElementById('facebook-share').addEventListener('click', function(e) {
+                e.preventDefault();
+                shareOnSocial('facebook');
+            });
+            
+            document.getElementById('twitter-share').addEventListener('click', function(e) {
+                e.preventDefault();
+                shareOnSocial('twitter');
+            });
+            
+            document.getElementById('whatsapp-share').addEventListener('click', function(e) {
+                e.preventDefault();
+                shareOnSocial('whatsapp');
+            });
+            
+            document.getElementById('instagram-share').addEventListener('click', function(e) {
+                e.preventDefault();
+                shareOnSocial('instagram');
+            });
+            
+            // Botones de cierre de modales
+            document.getElementById('close-modal').addEventListener('click', function() {
+                closeModal('virtualCardModal');
+            });
+            
+            document.getElementById('close-share-modal').addEventListener('click', function() {
+                closeModal('shareCardModal');
+            });
+            
+            // Botones de temas
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    selectTheme(this.getAttribute('data-theme'));
+                });
+            });
+            
+            // Botones de tipo de compartir
+            document.getElementById('public-share-btn').addEventListener('click', function() {
+                selectShareType('public');
+            });
+            
+            document.getElementById('private-share-btn').addEventListener('click', function() {
+                selectShareType('private');
+            });
+            
+            // Botones de compartir
+            document.getElementById('download-card-btn').addEventListener('click', function() {
+                downloadCard();
+            });
+            
+            document.getElementById('facebook-card-btn').addEventListener('click', function() {
+                shareOnFacebook();
+            });
+            
+            document.getElementById('twitter-card-btn').addEventListener('click', function() {
+                shareOnTwitter();
+            });
+            
+            document.getElementById('download-private-btn').addEventListener('click', function() {
+                downloadCard();
+            });
+            
+            document.getElementById('whatsapp-share-btn').addEventListener('click', function() {
+                shareOnWhatsApp();
+            });
+            
+            document.getElementById('email-share-btn').addEventListener('click', function() {
+                shareViaEmail();
+            });
+            
+            document.getElementById('copy-link-btn').addEventListener('click', function() {
+                copyShareLink();
+            });
+            
+            // Formulario
+            document.getElementById('virtualCardForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveCardForm();
+            });
+            
+            // Inputs para actualizar la vista previa
+            document.getElementById('cardRecipient').addEventListener('input', updateCardPreview);
+            document.getElementById('cardSender').addEventListener('input', updateCardPreview);
+            document.getElementById('cardMessage').addEventListener('input', updateCardPreview);
+        }
 
         // Crear corazones que caen
         function createHearts() {
@@ -1062,13 +1199,13 @@
             document.querySelectorAll('.share-type-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
             
-            // Mostrar opciones correspondientes
             if (type === 'public') {
+                document.getElementById('public-share-btn').classList.add('active');
                 document.getElementById('public-share-options').style.display = 'block';
                 document.getElementById('private-share-options').style.display = 'none';
             } else {
+                document.getElementById('private-share-btn').classList.add('active');
                 document.getElementById('public-share-options').style.display = 'none';
                 document.getElementById('private-share-options').style.display = 'block';
             }
@@ -1088,15 +1225,8 @@
             preview.className = 'card-preview ' + currentTheme;
         }
         
-        // Inicializar eventos para actualizar la vista previa
-        document.getElementById('cardRecipient').addEventListener('input', updateCardPreview);
-        document.getElementById('cardSender').addEventListener('input', updateCardPreview);
-        document.getElementById('cardMessage').addEventListener('input', updateCardPreview);
-        
-        // Guardar tarjetas virtuales
-        document.getElementById('virtualCardForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
+        // Guardar tarjetas virtuales (desde formulario)
+        function saveCardForm() {
             const recipient = document.getElementById('cardRecipient').value;
             const sender = document.getElementById('cardSender').value;
             const message = document.getElementById('cardMessage').value;
@@ -1145,9 +1275,9 @@
             
             // Cerrar modal y limpiar formulario
             closeModal('virtualCardModal');
-            this.reset();
+            document.getElementById('virtualCardForm').reset();
             updateCardPreview();
-        });
+        }
         
         // Guardar tarjeta en localStorage
         function saveCard(card) {
@@ -1221,7 +1351,7 @@
                 `;
             } else {
                 // Agregar cada tarjeta guardada
-                savedCards.forEach((card, index) {
+                savedCards.forEach((card, index) => {
                     const cardElement = createCardElement(card, index, false);
                     container.appendChild(cardElement);
                 });
@@ -1474,25 +1604,6 @@
                 }, 3000);
             }
         }
-        
-        // Inicializar la página
-        window.onload = function() {
-            createHearts();
-            updateCardPreview();
-            
-            // Actualizar la fecha en la tarjeta de regalo
-            const today = new Date();
-            const formattedDate = today.toLocaleDateString('es-ES', { 
-                day: '2-digit', 
-                month: 'long', 
-                year: 'numeric' 
-            });
-            document.getElementById('gift-card-date').textContent = formattedDate;
-            
-            // Ocultar las secciones al cargar la página
-            document.getElementById('public-cards-section').style.display = 'none';
-            document.getElementById('my-cards-section').style.display = 'none';
-        };
     </script>
 </body>
 </html>
