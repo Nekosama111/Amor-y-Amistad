@@ -265,7 +265,7 @@
             padding: 30px;
             border-radius: 20px;
             width: 90%;
-            max-width: 500px;
+            max-width: 600px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             position: relative;
             max-height: 90vh;
@@ -287,70 +287,120 @@
             gap: 15px;
         }
         
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .form-group label {
+            font-weight: bold;
+            color: #8a0c42;
+        }
+        
         input, textarea, select {
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid #ffccd5;
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid #ffccd5;
             font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #ff4d6d;
+            box-shadow: 0 0 0 3px rgba(255, 77, 109, 0.3);
         }
         
         textarea {
-            min-height: 100px;
+            min-height: 120px;
             resize: vertical;
         }
         
         /* Tarjeta virtual estilos */
         .card-preview {
             background: linear-gradient(45deg, #ffccd5, #ffb3c1);
-            border-radius: 15px;
-            padding: 30px;
-            margin: 20px 0;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 25px 0;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             position: relative;
-            min-height: 300px;
+            min-height: 350px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            transition: all 0.3s ease;
+            overflow: hidden;
         }
         
         .card-preview.heart-theme {
             background: linear-gradient(45deg, #ffccd5, #ff8fa3);
+            border: 3px solid #ff4d6d;
         }
         
         .card-preview.flower-theme {
             background: linear-gradient(45deg, #ffb3c1, #ff4d6d);
+            border: 3px solid #c1121f;
+            color: white;
         }
         
         .card-preview.romantic-theme {
             background: linear-gradient(45deg, #ff758f, #c9184a);
+            border: 3px solid #9d0208;
             color: white;
         }
         
+        .card-preview.vintage-theme {
+            background: linear-gradient(45deg, #f9dcc4, #fec89a);
+            border: 3px solid #f08080;
+            color: #6d6875;
+        }
+        
         .card-header {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
+            font-size: 2rem;
+            margin-bottom: 25px;
             font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
         
         .card-message {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-style: italic;
+            padding: 0 10px;
         }
         
         .card-footer {
             margin-top: 20px;
             font-weight: bold;
+            font-size: 1.2rem;
         }
         
         .card-hearts {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 20px;
+            right: 20px;
             color: #ff4d6d;
+            font-size: 1.5rem;
+        }
+        
+        .card-flower {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: #ff4d6d;
+            font-size: 1.5rem;
+        }
+        
+        .card-sparkle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #ff4d6d;
+            font-size: 1.5rem;
         }
         
         .share-options {
@@ -362,14 +412,15 @@
         }
         
         .share-btn {
-            padding: 10px 15px;
+            padding: 12px 20px;
             border-radius: 30px;
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
             transition: all 0.3s ease;
+            font-weight: bold;
         }
         
         .share-btn.facebook {
@@ -404,7 +455,7 @@
         
         .share-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         /* Mensajes públicos */
@@ -413,8 +464,8 @@
             text-align: center;
             width: 100%;
             display: none;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.85);
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
@@ -430,68 +481,73 @@
         .cards-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 25px;
             justify-content: center;
             margin: 30px 0;
         }
         
         .saved-card {
             background: white;
-            border-radius: 15px;
-            padding: 20px;
-            width: 300px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            width: 320px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             position: relative;
             transition: transform 0.3s ease;
+            border-top: 5px solid #ff4d6d;
         }
         
         .saved-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
         }
         
         .saved-card h3 {
             color: #ff4d6d;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
         }
         
         .saved-card p {
             text-align: left;
             margin-bottom: 15px;
+            font-size: 1.1rem;
         }
         
         .card-actions {
             display: flex;
             justify-content: space-between;
-            margin-top: 15px;
+            margin-top: 20px;
         }
         
         .action-btn {
             background: #ffccd5;
             border: none;
-            padding: 8px 15px;
+            padding: 10px 18px;
             border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
+            font-weight: bold;
         }
         
         .action-btn:hover {
             background: #ff4d6d;
             color: white;
+            transform: translateY(-2px);
         }
         
         /* Estilos para la tarjeta de regalo */
         .gift-card {
-            width: 400px;
-            height: 500px;
+            width: 450px;
+            height: 550px;
             background: linear-gradient(135deg, #fff5f5 0%, #ffecec 100%);
-            border-radius: 20px;
-            padding: 30px;
+            border-radius: 25px;
+            padding: 40px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
             position: relative;
             overflow: hidden;
             border: 15px solid #ff4d6d;
@@ -507,28 +563,29 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 10px;
+            height: 12px;
             background: linear-gradient(90deg, #ff4d6d, #ff8fa3, #ff4d6d);
         }
         
         .gift-card-header {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: #ff4d6d;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .gift-card-message {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             line-height: 1.6;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             font-style: italic;
             color: #8a0c42;
+            padding: 0 20px;
         }
         
         .gift-card-from {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             font-weight: bold;
             color: #ff4d6d;
             margin-top: auto;
@@ -536,56 +593,58 @@
         
         .gift-card-hearts {
             position: absolute;
-            bottom: 20px;
-            right: 20px;
+            bottom: 25px;
+            right: 25px;
             color: #ff4d6d;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
         }
         
         .gift-card-date {
             position: absolute;
-            bottom: 20px;
-            left: 20px;
-            font-size: 0.9rem;
+            bottom: 25px;
+            left: 25px;
+            font-size: 1rem;
             color: #8a0c42;
         }
         
         .gift-card-theme {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 2rem;
+            top: 25px;
+            left: 25px;
+            font-size: 2.2rem;
             color: #ff4d6d;
         }
         
         .share-options-modal {
             background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 20px;
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 25px;
             text-align: center;
         }
         
         .share-options-modal h3 {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             color: #ff4d6d;
+            font-size: 1.5rem;
         }
         
         .share-type-buttons {
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .share-type-btn {
-            padding: 10px 20px;
-            border-radius: 20px;
+            padding: 12px 24px;
+            border-radius: 25px;
             border: 2px solid #ff4d6d;
             background: white;
             color: #ff4d6d;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-weight: bold;
         }
         
         .share-type-btn.active {
@@ -595,18 +654,62 @@
         
         .share-type-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .no-cards-message {
             text-align: center;
-            padding: 40px;
-            font-size: 1.2rem;
+            padding: 50px;
+            font-size: 1.3rem;
             color: #8a0c42;
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             margin: 20px 0;
+        }
+        
+        .no-cards-message i {
+            font-size: 3.5rem;
+            color: #ff4d6d;
+            margin-bottom: 20px;
+        }
+        
+        .theme-selector {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        
+        .theme-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-option.active {
+            border-color: white;
+            box-shadow: 0 0 0 3px #ff4d6d;
+            transform: scale(1.1);
+        }
+        
+        .theme-option.heart-theme {
+            background: linear-gradient(45deg, #ffccd5, #ff8fa3);
+        }
+        
+        .theme-option.flower-theme {
+            background: linear-gradient(45deg, #ffb3c1, #ff4d6d);
+        }
+        
+        .theme-option.romantic-theme {
+            background: linear-gradient(45deg, #ff758f, #c9184a);
+        }
+        
+        .theme-option.vintage-theme {
+            background: linear-gradient(45deg, #f9dcc4, #fec89a);
         }
         
         @media (max-width: 768px) {
@@ -637,9 +740,9 @@
             }
             
             .gift-card {
-                width: 300px;
-                height: 400px;
-                padding: 20px;
+                width: 320px;
+                height: 450px;
+                padding: 25px;
             }
             
             .gift-card-header {
@@ -647,11 +750,15 @@
             }
             
             .gift-card-message {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
             }
             
             .share-type-buttons {
                 flex-direction: column;
+            }
+            
+            .theme-selector {
+                flex-wrap: wrap;
             }
         }
     </style>
@@ -687,9 +794,9 @@
                 <h3>Galería Pública</h3>
                 <p>Ve tarjetas compartidas por otros</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card" onclick="sharePage()">
                 <i class="fas fa-share-alt"></i>
-                <h3>Compartir</h3>
+                <h3>Compartir Página</h3>
                 <p>Difunde amor en redes sociales</p>
             </div>
         </div>
@@ -733,16 +840,32 @@
             <span class="close" onclick="closeModal('virtualCardModal')">&times;</span>
             <h2>Crea una Tarjeta Virtual</h2>
             <form id="virtualCardForm">
-                <input type="text" id="cardRecipient" placeholder="Para:" required>
-                <input type="text" id="cardSender" placeholder="De:" required>
-                <textarea id="cardMessage" placeholder="Escribe tu mensaje especial..." required></textarea>
-                <select id="cardTheme">
-                    <option value="heart-theme">Corazones</option>
-                    <option value="flower-theme">Flores</option>
-                    <option value="romantic-theme">Romántico</option>
-                </select>
+                <div class="form-group">
+                    <label for="cardRecipient">Para:</label>
+                    <input type="text" id="cardRecipient" placeholder="Nombre de la persona" required>
+                </div>
                 
-                <div style="display: flex; gap: 10px; align-items: center;">
+                <div class="form-group">
+                    <label for="cardSender">De:</label>
+                    <input type="text" id="cardSender" placeholder="Tu nombre" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cardMessage">Mensaje:</label>
+                    <textarea id="cardMessage" placeholder="Escribe tu mensaje especial..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Selecciona un tema:</label>
+                    <div class="theme-selector">
+                        <div class="theme-option heart-theme active" data-theme="heart-theme" onclick="selectTheme('heart-theme')" title="Corazones"></div>
+                        <div class="theme-option flower-theme" data-theme="flower-theme" onclick="selectTheme('flower-theme')" title="Flores"></div>
+                        <div class="theme-option romantic-theme" data-theme="romantic-theme" onclick="selectTheme('romantic-theme')" title="Romántico"></div>
+                        <div class="theme-option vintage-theme" data-theme="vintage-theme" onclick="selectTheme('vintage-theme')" title="Vintage"></div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 10px; align-items: center; margin: 15px 0;">
                     <input type="checkbox" id="makePublic">
                     <label for="makePublic">Hacer pública esta tarjeta (aparecerá en la galería)</label>
                 </div>
@@ -753,9 +876,15 @@
                         <i class="fas fa-heart"></i>
                         <i class="fas fa-heart"></i>
                     </div>
+                    <div class="card-sparkle">
+                        <i class="fas fa-sparkle"></i>
+                    </div>
                     <div class="card-header">Para: <span id="preview-recipient">[Nombre]</span></div>
                     <div class="card-message" id="preview-message">Tu mensaje aparecerá aquí...</div>
                     <div class="card-footer">De: <span id="preview-sender">[Tu nombre]</span></div>
+                    <div class="card-flower">
+                        <i class="fas fa-leaf"></i>
+                    </div>
                 </div>
                 
                 <button type="submit" class="button">Guardar Tarjeta</button>
@@ -864,6 +993,7 @@
         // Variable para almacenar la tarjeta actual a compartir
         let currentCardToShare = null;
         let currentShareType = 'public';
+        let currentTheme = 'heart-theme';
 
         // Crear corazones que caen
         function createHearts() {
@@ -910,6 +1040,20 @@
             document.getElementById(modalId).style.display = 'none';
         }
         
+        // Seleccionar tema
+        function selectTheme(theme) {
+            currentTheme = theme;
+            
+            // Actualizar botones de tema
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            document.querySelector(`.theme-option[data-theme="${theme}"]`).classList.add('active');
+            
+            // Actualizar vista previa
+            updateCardPreview();
+        }
+        
         // Seleccionar tipo de compartir
         function selectShareType(type) {
             currentShareType = type;
@@ -935,21 +1079,19 @@
             const recipient = document.getElementById('cardRecipient').value || '[Nombre]';
             const sender = document.getElementById('cardSender').value || '[Tu nombre]';
             const message = document.getElementById('cardMessage').value || 'Tu mensaje aparecerá aquí...';
-            const theme = document.getElementById('cardTheme').value;
             
             document.getElementById('preview-recipient').textContent = recipient;
             document.getElementById('preview-sender').textContent = sender;
             document.getElementById('preview-message').textContent = message;
             
             const preview = document.getElementById('cardPreview');
-            preview.className = 'card-preview ' + theme;
+            preview.className = 'card-preview ' + currentTheme;
         }
         
         // Inicializar eventos para actualizar la vista previa
         document.getElementById('cardRecipient').addEventListener('input', updateCardPreview);
         document.getElementById('cardSender').addEventListener('input', updateCardPreview);
         document.getElementById('cardMessage').addEventListener('input', updateCardPreview);
-        document.getElementById('cardTheme').addEventListener('change', updateCardPreview);
         
         // Guardar tarjetas virtuales
         document.getElementById('virtualCardForm').addEventListener('submit', function(e) {
@@ -958,7 +1100,6 @@
             const recipient = document.getElementById('cardRecipient').value;
             const sender = document.getElementById('cardSender').value;
             const message = document.getElementById('cardMessage').value;
-            const theme = document.getElementById('cardTheme').value;
             const isPublic = document.getElementById('makePublic').checked;
             
             // Crear objeto de tarjeta
@@ -967,7 +1108,7 @@
                 recipient: recipient,
                 sender: sender,
                 message: message,
-                theme: theme,
+                theme: currentTheme,
                 date: new Date().toLocaleDateString('es-ES', { 
                     day: '2-digit', 
                     month: '2-digit', 
@@ -985,7 +1126,7 @@
                     recipient: recipient,
                     sender: sender,
                     message: message,
-                    theme: theme,
+                    theme: currentTheme,
                     date: new Date().toLocaleDateString('es-ES', { 
                         day: '2-digit', 
                         month: '2-digit', 
@@ -1035,7 +1176,7 @@
             if (publicCards.length === 0) {
                 container.innerHTML = `
                     <div class="no-cards-message">
-                        <i class="fas fa-heart" style="font-size: 3rem; color: #ff4d6d; margin-bottom: 20px;"></i>
+                        <i class="fas fa-heart"></i>
                         <h3>Aún no hay tarjetas públicas</h3>
                         <p>¡Sé el primero en crear y compartir una tarjeta!</p>
                     </div>
@@ -1073,14 +1214,14 @@
             if (savedCards.length === 0) {
                 container.innerHTML = `
                     <div class="no-cards-message">
-                        <i class="fas fa-heart" style="font-size: 3rem; color: #ff4d6d; margin-bottom: 20px;"></i>
+                        <i class="fas fa-heart"></i>
                         <h3>Aún no has creado tarjetas</h3>
                         <p>¡Crea tu primera tarjeta haciendo clic en el botón "Crear Tarjeta Virtual"!</p>
                     </div>
                 `;
             } else {
                 // Agregar cada tarjeta guardada
-                savedCards.forEach((card, index) => {
+                savedCards.forEach((card, index) {
                     const cardElement = createCardElement(card, index, false);
                     container.appendChild(cardElement);
                 });
@@ -1154,6 +1295,9 @@
             } else if (card.theme === 'romantic-theme') {
                 themeIcon.className = 'fas fa-star';
                 giftCard.style.borderColor = '#c9184a';
+            } else if (card.theme === 'vintage-theme') {
+                themeIcon.className = 'fas fa-feather';
+                giftCard.style.borderColor = '#f08080';
             }
             
             // Mostrar modal de compartir
@@ -1214,6 +1358,26 @@
                     console.error('Error al copiar: ', err);
                     alert('No se pudo copiar el enlace. Puedes tomar una captura de pantalla de la tarjeta.');
                 });
+        }
+        
+        // Compartir página
+        function sharePage() {
+            const text = '¡Crea y comparte tarjetas virtuales para el Día del Amor y la Amistad 2025!';
+            const url = window.location.href;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Amor y Amistad 2025',
+                    text: text,
+                    url: url,
+                })
+                .then(() => console.log('Successful share'))
+                .catch((error) => console.log('Error sharing', error));
+            } else {
+                // Fallback para navegadores que no soportan Web Share API
+                const shareUrl = `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`;
+                window.open(shareUrl, '_blank');
+            }
         }
         
         // Dar like a una tarjeta
